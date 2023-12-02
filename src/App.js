@@ -46,9 +46,19 @@ function App() {
   }, [dataPath]);
 
   const handleWriteData = async () => {
-    const uniqueID = uuidv4();
     const docRef = doc(db, dataPath);
-    await setDoc(docRef, { [uniqueID]: inputValue }, { merge: true });
+
+    // Create a date string without milliseconds
+    const now = new Date();
+    const uniqueKey = `${now.getFullYear()}-${String(
+      now.getMonth() + 1
+    ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}_${String(
+      now.getHours()
+    ).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(
+      now.getSeconds()
+    ).padStart(2, "0")}`;
+
+    await setDoc(docRef, { [uniqueKey]: inputValue }, { merge: true });
     setInputValue("");
     fetchData(); // Fetch the updated data after writing
   };
