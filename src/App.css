@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   margin-top: 20px;
+  size: 100vw;
 }
 /* Style for the table */
 .table {
